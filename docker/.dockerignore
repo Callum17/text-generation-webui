@@ -1,5 +1,11 @@
+# ignore build / VCS artifacts
+.git
 .env
 Dockerfile
+docker-compose.yml
+docker-compose.override.yml
+
+# ignore mounts apart from extensions
 /characters
 /loras
 /models
@@ -7,3 +13,9 @@ Dockerfile
 /prompts
 /softprompts
 /training
+/cloudflared
+
+# ignore top level build / management artifacts
+/requirements*.txt
+/*.sh
+/*.bat

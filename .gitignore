@@ -35,3 +35,10 @@ models/config-user.yaml
 Thumbs.db
 .chroma
 installer_files
+
+# ignore custom container envrionment
+/.env
+/Dockerfile
+.dockerignore
+/docker-compose.yml
+/docker-compose.override.yml

@@ -11,9 +11,11 @@ Make sure to also create the necessary symbolic links:
 
 ```
 cd text-generation-webui
-ln -s docker/{Dockerfile,docker-compose.yml,.dockerignore} .
-cp docker/.env.example .env
+ln -s docker/{docker-compose.yml,.dockerignore,nvidia/Dockerfile} .
 # Edit .env and set TORCH_CUDA_ARCH_LIST based on your GPU model
+cp docker/.env.example .env
+# Edit override for runtime user to avoid file permission issues on mounted directories
+cp docker/docker-compose.overrides.yml.example docker-compose.overrides.yml
 docker compose up --build
 ```
 
