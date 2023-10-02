@@ -1,5 +1,5 @@
 version: "3.3"
 services:
-  dev-text-generation-webui:
+  text-generation-webui:
     # override with HOST_UID:0 to ensure access to mounts outside the container
     user: 6972:0

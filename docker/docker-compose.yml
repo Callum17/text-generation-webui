@@ -1,6 +1,6 @@
 version: "3.3"
 services:
-  dev-text-generation-webui:
+  text-generation-webui:
     restart: unless-stopped
     build:
       context: .
@@ -16,14 +16,14 @@ services:
     stdin_open: true
     tty: true
     volumes:
-      - ./characters:/app/characters
-      - ./extensions:/app/extensions
-      - ./loras:/app/loras
-      - ./models:/app/models
-      - ./presets:/app/presets
-      - ./prompts:/app/prompts
-      - ./softprompts:/app/softprompts
-      - ./training:/app/training
+      - ./characters:/home/app/text-generation-webui/characters
+      - ./extensions:/home/app/text-generation-webui/extensions
+      - ./loras:/home/app/text-generation-webui/loras
+      - ./models:/home/app/text-generation-webui/models
+      - ./presets:/home/app/text-generation-webui/presets
+      - ./prompts:/home/app/text-generation-webui/prompts
+      - ./training:/home/app/text-generation-webui/training
+      - ./softprompts:/home/app/text-generation-webui/softprompts
       - ./cloudflared:/etc/cloudflared
     deploy:
       resources:
