@@ -17,14 +17,14 @@ RUN --mount=type=cache,target=/root/.cache/pip,rw \
 USER app:0
 # build wheels for runtime
 WORKDIR /home/app/build
-COPY --chown=6972:0 docker/nvidia/nvidia_container_req_builder.txt /home/app/build
+COPY --chown=6972:0 requirements.txt /home/app/build
 COPY --chown=6972:0 extensions /home/app/build/extensions
 RUN --mount=type=cache,target=/root/.cache/pip,rw \
     # clone and build gptq-for-llama
     git clone --depth=1 https://github.com/oobabooga/GPTQ-for-LLaMa /home/app/gptq-for-llama && \
     # build all requirements files as wheel dists
     # strictly speaking we should build for oobabooga/GPTQ-for-LLaMa here too, but it's requirements are out of date (subset of other deps) and need looser constraints
-    pip3 wheel -w wheels -r nvidia_container_req_builder.txt `ls extensions/*/requirements.txt | sed -e 's/^/-r /'` && \
+    pip3 wheel -w wheels -r requirements.txt `ls extensions/*/requirements.txt | sed -e 's/^/-r /'` && \
     # drop wheel and setuptools .whl to avoid install issues
     rm wheels/setuptools*.whl && \
     rm wheels/wheel*.whl

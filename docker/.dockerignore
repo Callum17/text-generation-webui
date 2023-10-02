@@ -16,6 +16,5 @@ docker-compose.override.yml
 /cloudflared
 
 # ignore top level build / management artifacts
-/requirements*.txt
 /*.sh
 /*.bat
