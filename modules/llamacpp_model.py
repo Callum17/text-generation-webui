@@ -76,11 +76,11 @@ class LlamaCppModel:
             'n_ctx': shared.args.n_ctx,
             'seed': int(shared.args.llama_cpp_seed),
             'n_threads': shared.args.threads or None,
+            'n_threads_batch': shared.args.threads_batch or None,
             'n_batch': shared.args.n_batch,
             'use_mmap': not shared.args.no_mmap,
             'use_mlock': shared.args.mlock,
-            'mul_mat_q': shared.args.mul_mat_q,
-            'low_vram': shared.args.low_vram,
+            'mul_mat_q': not shared.args.no_mul_mat_q,
             'numa': shared.args.numa,
             'n_gpu_layers': shared.args.n_gpu_layers,
             'rope_freq_base': RoPE.get_rope_freq_base(shared.args.alpha_value, shared.args.rope_freq_base),
@@ -101,7 +101,7 @@ class LlamaCppModel:
 
         return self.model.tokenize(string)
 
-    def decode(self, ids):
+    def decode(self, ids, **kwargs):
         return self.model.detokenize(ids).decode('utf-8')
 
     def get_logits(self, tokens):
@@ -146,6 +146,8 @@ class LlamaCppModel:
             top_p=state['top_p'],
             top_k=state['top_k'],
             repeat_penalty=state['repetition_penalty'],
+            presence_penalty=state['presence_penalty'],
+            frequency_penalty=state['frequency_penalty'],
             tfs_z=state['tfs'],
             mirostat_mode=int(state['mirostat_mode']),
             mirostat_tau=state['mirostat_tau'],
